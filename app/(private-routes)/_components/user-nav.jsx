@@ -51,7 +51,9 @@ export function UserNav({ user }) {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <Link href="/logout" className="block">
-          <DropdownMenuItem className={"focus:bg-destructive focus:text-white"}>
+          <DropdownMenuItem
+            className={"cursor-pointer focus:bg-destructive focus:text-white"}
+          >
             Log out
           </DropdownMenuItem>
         </Link>
