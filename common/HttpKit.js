@@ -37,6 +37,27 @@ const removeClientToken = () => {
   return defer.promise;
 };
 
+client.interceptors.response.use(
+  function (response) {
+    const responseObject = {
+      success: true,
+      statusCode: response?.data?.statusCode || 200,
+      message: response?.data?.message || "Request successful",
+      meta: response?.data?.meta || null,
+      data: response?.data?.result,
+    };
+    return responseObject;
+  },
+  function (error) {
+    const errorResponse = {
+      success: false,
+      message: error.response?.data?.message || "An error occurred",
+      errorMessages: error.response?.data?.errorMessages || [],
+    };
+    return Promise.reject(errorResponse);
+  },
+);
+
 const HttpKit = {
   defer,
   client,
