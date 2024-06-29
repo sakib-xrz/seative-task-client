@@ -12,7 +12,7 @@ import { format } from "date-fns";
 
 export default function DueDateFilter({ params, setParams }) {
   const [open, setOpen] = useState(false);
-  const value = params?.dueDate;
+  const value = params?.due_date;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -32,7 +32,7 @@ export default function DueDateFilter({ params, setParams }) {
           onSelect={(date) => {
             setParams({
               ...params,
-              dueDate: format(date, "P").split("/").join("-"),
+              due_date: format(date, "P").split("/").join("-"),
             });
             setOpen(false);
           }}

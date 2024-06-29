@@ -7,18 +7,28 @@ import Container from "@/components/shared/Container";
 import { Input } from "@/components/ui/input";
 import SortTask from "./_components/sort-task";
 import FilterTask from "./_components/filter-task";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { generateQueryString } from "@/lib/utils";
 
 export default function HomePage() {
   const { user, userLoading } = useStore();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [params, setParams] = useState({
-    search: "",
-    sortBy: "",
-    order: "",
-    status: "",
-    priority: "",
-    dueDate: "",
+    search: searchParams.get("search") || "",
+    sortBy: searchParams.get("sortBy") || "",
+    order: searchParams.get("order") || "",
+    status: searchParams.get("status") || "",
+    priority: searchParams.get("priority") || "",
+    due_date: searchParams.get("due_date") || "",
   });
+
+  const queryString = generateQueryString(params);
+
+  useEffect(() => {
+    router.push(queryString);
+  }, [queryString, router]);
 
   if (userLoading) {
     return <Loading className="h-screen" />;
