@@ -4,18 +4,27 @@ import Loading from "@/components/shared/Loading";
 import useStore from "@/store";
 import { UserNav } from "./_components/user-nav";
 import Container from "@/components/shared/Container";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Settings2 } from "lucide-react";
 import SortTask from "./_components/sort-task";
+import FilterTask from "./_components/filter-task";
+import { useState } from "react";
 
 export default function HomePage() {
   const { user, userLoading } = useStore();
+  const [params, setParams] = useState({
+    search: "",
+    sortBy: "",
+    order: "",
+    status: "",
+    priority: "",
+    dueDate: "",
+  });
 
   if (userLoading) {
     return <Loading className="h-screen" />;
   }
+
+  console.log(params);
 
   return (
     <Container>
@@ -43,11 +52,8 @@ export default function HomePage() {
           />
 
           <div className="flex w-full items-center gap-2 lg:w-2/5">
-            <SortTask />
-            <Button variant="outline" className="sm:gap-2">
-              <Settings2 className="h-4 w-4" />
-              <p className="hidden sm:block">Filter</p>
-            </Button>
+            <SortTask params={params} setParams={setParams} />
+            <FilterTask params={params} setParams={setParams} />
           </div>
         </div>
       </div>

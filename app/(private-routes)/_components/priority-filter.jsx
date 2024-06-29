@@ -16,38 +16,15 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const sortOptions = [
-  {
-    value: "priority,asc",
-    label: "Priority (Low to High)",
-  },
-  {
-    value: "priority,desc",
-    label: "Priority (High to Low)",
-  },
-  {
-    value: "duration,asc",
-    label: "Duration (Low to High)",
-  },
-  {
-    value: "duration,desc",
-    label: "Duration (High to Low)",
-  },
-  {
-    value: "due_date,asc",
-    label: "Due Date (Low to High)",
-  },
-  {
-    value: "due_date,desc",
-    label: "Due Date (High to Low)",
-  },
+const filterOptions = [
+  { value: "high", label: "High" },
+  { value: "medium", label: "Medium" },
+  { value: "low", label: "Low" },
 ];
 
-export default function SortTask({ params, setParams }) {
+export default function PriorityFilter() {
   const [open, setOpen] = useState(false);
-  const { sortBy, order } = params;
-  const value = sortBy && order ? `${sortBy},${order}` : "";
-
+  const [value, setValue] = useState("");
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -55,11 +32,11 @@ export default function SortTask({ params, setParams }) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="flex-grow justify-between"
+          className="justify-between"
         >
           {value
-            ? sortOptions.find((el) => el.value === value)?.label
-            : "Sort task..."}
+            ? filterOptions.find((el) => el.value === value)?.label
+            : "Filter by priority..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -67,16 +44,12 @@ export default function SortTask({ params, setParams }) {
         <Command>
           <CommandList>
             <CommandGroup>
-              {sortOptions.map((el) => (
+              {filterOptions.map((el) => (
                 <CommandItem
                   key={el.value}
                   value={el.value}
                   onSelect={(currentValue) => {
-                    setParams({
-                      ...params,
-                      sortBy: currentValue.split(",")[0],
-                      order: currentValue.split(",")[1],
-                    });
+                    setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
                 >

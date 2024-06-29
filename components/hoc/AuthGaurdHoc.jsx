@@ -9,6 +9,11 @@ import { setTokenAndRedirect } from "@/lib/utils";
 import useStore from "@/store";
 import Loading from "../shared/Loading";
 
+let location;
+if (typeof window !== "undefined") {
+  location = window.location;
+}
+
 export default function AuthGuardHoc({ children }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -22,9 +27,10 @@ export default function AuthGuardHoc({ children }) {
         .then(() => {
           fetchUser();
         })
-        .catch((error) => {
-          console.log("Error from setTokenAndRedirect", error);
-          router.push("/logout");
+        .catch(() => {
+          localStorage.removeItem(AUTH_TOKEN_KEY);
+          HttpKit.client.defaults.headers.common["Authorization"] = "";
+          window.location.reload();
         });
     } else {
       const nextURL = { next: pathname };

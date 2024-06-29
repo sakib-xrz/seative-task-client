@@ -12,7 +12,6 @@ import {
 import Link from "next/link";
 
 export function UserNav({ user }) {
-  console.log(user);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -21,7 +20,7 @@ export function UserNav({ user }) {
           className="relative h-10 w-10 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0"
         >
           <Avatar className="h-10 w-10">
-            <AvatarImage src={user?.profile_picture} alt={user?.name} />
+            <AvatarImage src={user?.profile_picturer} alt={user?.name} />
             <AvatarFallback>
               {user?.name
                 ?.split(" ")
