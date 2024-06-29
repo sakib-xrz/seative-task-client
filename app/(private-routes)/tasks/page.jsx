@@ -99,7 +99,7 @@ export default function TaskPage() {
               setSearchKey={setSearchKey}
             />
 
-            <TaskGrid tasks={tasks} />
+            <TaskGrid tasks={tasks} refetch={refetch} />
           </div>
         )}
       </div>

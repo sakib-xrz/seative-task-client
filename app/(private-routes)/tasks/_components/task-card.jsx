@@ -15,9 +15,28 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { formatText } from "@/lib/utils";
+import ApiKit from "@/common/ApiKit";
+import { toast } from "sonner";
 
-export default function TaskCard({ task }) {
+export default function TaskCard({ task, refetch }) {
   const isDueDateOver = new Date(task?.due_date) < new Date();
+
+  const handleDelete = (id) => {
+    const promise = ApiKit.task
+      .deleteTask(id)
+      .then(() => {
+        refetch();
+      })
+      .catch((error) => {
+        throw error;
+      });
+
+    toast.promise(promise, {
+      loading: "Deleting task...",
+      success: "Task deleted successfully",
+      error: "Failed to delete task",
+    });
+  };
   return (
     <div key={task?._id} className="rounded-lg bg-white shadow-lg">
       <div className="flex items-center justify-between gap-2 px-4 py-4 lg:gap-4 lg:px-6">
@@ -48,7 +67,11 @@ export default function TaskCard({ task }) {
               <Pencil size={16} />
               Edit
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer gap-2 focus:bg-destructive focus:text-white">
+
+            <DropdownMenuItem
+              onClick={() => handleDelete(task?._id)}
+              className="cursor-pointer gap-2 focus:bg-destructive focus:text-white"
+            >
               <Trash size={16} />
               Delete
             </DropdownMenuItem>

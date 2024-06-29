@@ -1,7 +1,7 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import TaskCard from "./task-card";
 
-export default function TaskGrid({ tasks }) {
+export default function TaskGrid({ tasks, refetch }) {
   return (
     <div className="grid gap-5 md:grid-cols-3">
       <div className="rounded-md bg-accent">
@@ -16,7 +16,9 @@ export default function TaskGrid({ tasks }) {
             {tasks?.data
               ?.filter((task) => task?.status === "todo")
               .map((task) => {
-                return <TaskCard key={task._id} task={task} />;
+                return (
+                  <TaskCard key={task._id} task={task} refetch={refetch} />
+                );
               })}
           </div>
         </ScrollArea>
@@ -39,7 +41,9 @@ export default function TaskGrid({ tasks }) {
             {tasks?.data
               ?.filter((task) => task?.status === "in-progress")
               .map((task) => {
-                return <TaskCard key={task._id} task={task} />;
+                return (
+                  <TaskCard key={task._id} task={task} refetch={refetch} />
+                );
               })}
           </div>
         </ScrollArea>
@@ -62,7 +66,9 @@ export default function TaskGrid({ tasks }) {
             {tasks?.data
               ?.filter((task) => task?.status === "completed")
               .map((task) => {
-                return <TaskCard key={task._id} task={task} />;
+                return (
+                  <TaskCard key={task._id} task={task} refetch={refetch} />
+                );
               })}
           </div>
         </ScrollArea>
