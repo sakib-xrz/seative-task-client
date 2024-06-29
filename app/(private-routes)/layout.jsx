@@ -1,9 +1,12 @@
 import AuthGuardHoc from "@/components/hoc/AuthGaurdHoc";
+import Header from "./_components/header";
+import Container from "@/components/shared/Container";
 
 export default function PrivateRouteLayout({ children }) {
   return (
-    <div>
+    <Container>
+      <Header />
       <AuthGuardHoc>{children}</AuthGuardHoc>
-    </div>
+    </Container>
   );
 }
