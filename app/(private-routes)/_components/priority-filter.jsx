@@ -22,9 +22,9 @@ const filterOptions = [
   { value: "low", label: "Low" },
 ];
 
-export default function PriorityFilter() {
+export default function PriorityFilter({ params, setParams }) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const value = params?.priority;
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -49,7 +49,7 @@ export default function PriorityFilter() {
                   key={el.value}
                   value={el.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
+                    setParams({ ...params, priority: currentValue });
                     setOpen(false);
                   }}
                 >

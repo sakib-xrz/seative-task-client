@@ -10,10 +10,12 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 
-export default function FilterDueDate() {
-  const [value, setValue] = useState("");
+export default function DueDateFilter({ params, setParams }) {
+  const [open, setOpen] = useState(false);
+  const value = params?.dueDate;
+
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -28,7 +30,11 @@ export default function FilterDueDate() {
           mode="single"
           selected={new Date(value)}
           onSelect={(date) => {
-            setValue(format(date, "P").split("/").join("-"));
+            setParams({
+              ...params,
+              dueDate: format(date, "P").split("/").join("-"),
+            });
+            setOpen(false);
           }}
           initialFocus
         />

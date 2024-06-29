@@ -12,9 +12,9 @@ import { Button } from "@/components/ui/button";
 import { Settings2 } from "lucide-react";
 import StatusFilter from "./status-filter";
 import PriorityFilter from "./priority-filter";
-import FilterDueDate from "./filter-duedate";
+import DueDateFilter from "./duedate-filter";
 
-export default function FilterTask() {
+export default function FilterTask({ params, setParams }) {
   const [open, setOpen] = useState(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -31,9 +31,9 @@ export default function FilterTask() {
             <p>Filter your tasks by status, priority and due date.</p>
           </DialogDescription>
         </DialogHeader>
-        <StatusFilter />
-        <PriorityFilter />
-        <FilterDueDate />
+        <StatusFilter params={params} setParams={setParams} />
+        <PriorityFilter params={params} setParams={setParams} />
+        <DueDateFilter params={params} setParams={setParams} />
       </DialogContent>
     </Dialog>
   );

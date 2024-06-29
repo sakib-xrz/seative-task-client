@@ -22,9 +22,9 @@ const filterOptions = [
   { value: "completed", label: "Completed" },
 ];
 
-export default function StatusFilter() {
+export default function StatusFilter({ params, setParams }) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const value = params?.status;
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -49,7 +49,7 @@ export default function StatusFilter() {
                   key={el.value}
                   value={el.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
+                    setParams({ ...params, status: currentValue });
                     setOpen(false);
                   }}
                 >
