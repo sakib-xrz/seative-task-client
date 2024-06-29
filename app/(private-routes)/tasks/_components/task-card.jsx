@@ -17,6 +17,7 @@ import {
 import { formatText } from "@/lib/utils";
 import ApiKit from "@/common/ApiKit";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export default function TaskCard({ task, refetch }) {
   const isDueDateOver = new Date(task?.due_date) < new Date();
@@ -63,10 +64,12 @@ export default function TaskCard({ task, refetch }) {
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem className="cursor-pointer gap-2">
-              <Pencil size={16} />
-              Edit
-            </DropdownMenuItem>
+            <Link href={`/tasks/${task?._id}/edit`}>
+              <DropdownMenuItem className="cursor-pointer gap-2">
+                <Pencil size={16} />
+                Edit
+              </DropdownMenuItem>
+            </Link>
 
             <DropdownMenuItem
               onClick={() => handleDelete(task?._id)}

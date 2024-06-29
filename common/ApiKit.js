@@ -40,7 +40,7 @@ const ApiKit = {
     },
     updateTask: (id, payload) => {
       const url = `/tasks/${id}`;
-      return client.put(url, payload);
+      return client.patch(url, payload);
     },
     deleteTask: (id) => {
       const url = `/tasks/${id}`;
