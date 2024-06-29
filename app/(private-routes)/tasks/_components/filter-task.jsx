@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Settings2 } from "lucide-react";
+import { ListFilter } from "lucide-react";
 import StatusFilter from "./status-filter";
 import PriorityFilter from "./priority-filter";
 import DueDateFilter from "./duedate-filter";
@@ -20,7 +20,7 @@ export default function FilterTask({ params, setParams }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <Button variant="outline" className="sm:gap-2">
-          <Settings2 className="h-4 w-4" />
+          <ListFilter className="h-4 w-4" />
           <p className="hidden sm:block">Filter</p>
         </Button>
       </DialogTrigger>

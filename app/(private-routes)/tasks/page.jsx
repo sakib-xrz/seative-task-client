@@ -13,7 +13,8 @@ import ApiKit from "@/common/ApiKit";
 import Loading from "@/components/shared/Loading";
 import TitleWithButton from "@/components/shared/TitleWithButton";
 import ClearFilter from "./_components/clear-filter";
-import { ScrollArea } from "@/components/ui/scroll-area";
+
+import TaskGrid from "./_components/task-grid";
 
 export default function TaskPage() {
   const router = useRouter();
@@ -98,58 +99,7 @@ export default function TaskPage() {
               setSearchKey={setSearchKey}
             />
 
-            <div className="grid gap-5 md:grid-cols-3">
-              <div className="rounded-md bg-accent">
-                <div className="border-b-2 py-3 text-center font-semibold">
-                  To do
-                </div>
-                <ScrollArea className="h-[calc(100vh-400px)]">
-                  {tasks?.data
-                    ?.filter((task) => task?.status === "todo")
-                    .map((task) => {
-                      return (
-                        <div key={task.id} className="m-5 bg-white p-3">
-                          <p>{task.title}</p>
-                        </div>
-                      );
-                    })}
-                </ScrollArea>
-              </div>
-
-              <div className="rounded-md bg-accent">
-                <div className="border-b-2 py-3 text-center font-semibold">
-                  In progress
-                </div>
-                <ScrollArea className="h-[calc(100vh-400px)]">
-                  {tasks?.data
-                    ?.filter((task) => task?.status === "in-progress")
-                    .map((task) => {
-                      return (
-                        <div key={task.id} className="m-5 bg-white p-3">
-                          <p>{task.title}</p>
-                        </div>
-                      );
-                    })}
-                </ScrollArea>
-              </div>
-
-              <div className="rounded-md bg-accent">
-                <div className="border-b-2 py-3 text-center font-semibold">
-                  Completed
-                </div>
-                <ScrollArea className="h-[calc(100vh-400px)]">
-                  {tasks?.data
-                    ?.filter((task) => task?.status === "completed")
-                    .map((task) => {
-                      return (
-                        <div key={task.id} className="m-5 bg-white p-3">
-                          <p>{task.title}</p>
-                        </div>
-                      );
-                    })}
-                </ScrollArea>
-              </div>
-            </div>
+            <TaskGrid tasks={tasks} />
           </div>
         )}
       </div>
