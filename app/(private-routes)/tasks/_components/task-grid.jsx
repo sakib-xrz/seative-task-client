@@ -5,7 +5,12 @@ export default function TaskGrid({ tasks }) {
   return (
     <div className="grid gap-5 md:grid-cols-3">
       <div className="rounded-md bg-accent">
-        <div className="border-b-2 py-3 text-center font-semibold">To do</div>
+        <div className="border-b-2 py-3 text-center font-semibold">
+          To do{" "}
+          <span className="text-xs text-muted-foreground">
+            ({tasks?.data?.filter((task) => task?.status === "todo")?.length})
+          </span>
+        </div>
         <ScrollArea className="h-[calc(100vh-400px)]">
           <div className="space-y-2 p-2">
             {tasks?.data
@@ -19,7 +24,15 @@ export default function TaskGrid({ tasks }) {
 
       <div className="rounded-md bg-accent">
         <div className="border-b-2 py-3 text-center font-semibold">
-          In progress
+          In progress{" "}
+          <span className="text-xs text-muted-foreground">
+            (
+            {
+              tasks?.data?.filter((task) => task?.status === "in-progress")
+                ?.length
+            }
+            )
+          </span>
         </div>
         <ScrollArea className="h-[calc(100vh-400px)]">
           <div className="space-y-2 p-2">
@@ -34,7 +47,15 @@ export default function TaskGrid({ tasks }) {
 
       <div className="rounded-md bg-accent">
         <div className="border-b-2 py-3 text-center font-semibold">
-          Completed
+          Completed{" "}
+          <span className="text-xs text-muted-foreground">
+            (
+            {
+              tasks?.data?.filter((task) => task?.status === "completed")
+                ?.length
+            }
+            )
+          </span>
         </div>
         <ScrollArea className="h-[calc(100vh-400px)]">
           <div className="space-y-2 p-2">
