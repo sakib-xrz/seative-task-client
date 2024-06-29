@@ -6,10 +6,14 @@ import SortTask from "./_components/sort-task";
 import FilterTask from "./_components/filter-task";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { generateQueryString } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
-import { X } from "lucide-react";
+import { generateQueryString, sanitizeParams } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
+import { useQuery } from "@tanstack/react-query";
+import ApiKit from "@/common/ApiKit";
+import Loading from "@/components/shared/Loading";
+import TitleWithButton from "@/components/shared/TitleWithButton";
+import ClearFilter from "./_components/clear-filter";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function TaskPage() {
   const router = useRouter();
@@ -37,9 +41,26 @@ export default function TaskPage() {
     }));
   }, 400);
 
+  const {
+    data: tasks,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["tasks", params],
+    queryFn: () =>
+      ApiKit.task.getTasks(sanitizeParams(params)).then((data) => data),
+    keepPreviousData: true,
+  });
+
   return (
     <div>
-      <div className="my-10">
+      <div className="my-10 space-y-5">
+        <TitleWithButton
+          title="Tasks"
+          buttonText="Create New Task"
+          href="/tasks/new"
+        />
+
         <div className="flex flex-col gap-2 lg:flex-row">
           <Input
             id="search"
@@ -66,34 +87,71 @@ export default function TaskPage() {
           </div>
         </div>
 
-        <div className="mt-5 flex justify-end">
-          {(params.search ||
-            params.sortBy ||
-            params.order ||
-            params.status ||
-            params.priority ||
-            params.due_date) && (
-            <Badge
-              size={"lg"}
-              onClick={() => {
-                setParams({
-                  search: "",
-                  sortBy: "",
-                  order: "",
-                  status: "",
-                  priority: "",
-                  due_date: "",
-                }),
-                  setSearchKey("");
-              }}
-              variant="outline"
-              className="group cursor-pointer space-x-1 hover:border-destructive hover:text-destructive"
-            >
-              <span>Clear all</span>
-              <X className="h-4 w-4 group-hover:text-destructive" />
-            </Badge>
-          )}
-        </div>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <div className="space-y-5">
+            <ClearFilter
+              params={params}
+              setParams={setParams}
+              tasks={tasks}
+              setSearchKey={setSearchKey}
+            />
+
+            <div className="grid gap-5 md:grid-cols-3">
+              <div className="rounded-md bg-accent">
+                <div className="border-b-2 py-3 text-center font-semibold">
+                  To do
+                </div>
+                <ScrollArea className="h-[calc(100vh-400px)]">
+                  {tasks?.data
+                    ?.filter((task) => task?.status === "todo")
+                    .map((task) => {
+                      return (
+                        <div key={task.id} className="m-5 bg-white p-3">
+                          <p>{task.title}</p>
+                        </div>
+                      );
+                    })}
+                </ScrollArea>
+              </div>
+
+              <div className="rounded-md bg-accent">
+                <div className="border-b-2 py-3 text-center font-semibold">
+                  In progress
+                </div>
+                <ScrollArea className="h-[calc(100vh-400px)]">
+                  {tasks?.data
+                    ?.filter((task) => task?.status === "in-progress")
+                    .map((task) => {
+                      return (
+                        <div key={task.id} className="m-5 bg-white p-3">
+                          <p>{task.title}</p>
+                        </div>
+                      );
+                    })}
+                </ScrollArea>
+              </div>
+
+              <div className="rounded-md bg-accent">
+                <div className="border-b-2 py-3 text-center font-semibold">
+                  Completed
+                </div>
+                <ScrollArea className="h-[calc(100vh-400px)]">
+                  {tasks?.data
+                    ?.filter((task) => task?.status === "completed")
+                    .map((task) => {
+                      return (
+                        <div key={task.id} className="m-5 bg-white p-3">
+                          <p>{task.title}</p>
+                        </div>
+                      );
+                    })}
+                </ScrollArea>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

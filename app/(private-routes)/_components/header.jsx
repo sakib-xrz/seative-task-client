@@ -16,9 +16,6 @@ export default function Header() {
         <h2 className="text-2xl font-bold tracking-tight">
           Welcome back {user?.name?.split(" ")[0]}!
         </h2>
-        <p className="hidden text-muted-foreground sm:block">
-          Here&apos;s a list of your tasks for this month!
-        </p>
       </div>
       <div className="flex items-center space-x-2">
         <UserNav user={user} />
