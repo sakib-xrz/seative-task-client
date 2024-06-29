@@ -19,6 +19,10 @@ const ApiKit = {
       const url = "/me";
       return client.get(url);
     },
+    getUsers: () => {
+      const url = "/users";
+      return client.get(url);
+    },
   },
 
   task: {

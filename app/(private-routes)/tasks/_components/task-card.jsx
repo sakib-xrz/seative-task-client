@@ -86,7 +86,7 @@ export default function TaskCard({ task, refetch }) {
           <Flag
             className={
               task?.status === "in-progress"
-                ? "text-orange-500"
+                ? "text-yellow-500"
                 : task?.status === "completed"
                   ? "text-green-500"
                   : "text-red-500"
@@ -96,7 +96,7 @@ export default function TaskCard({ task, refetch }) {
           <span
             className={
               task?.status === "in-progress"
-                ? "text-orange-500"
+                ? "text-yellow-500"
                 : task?.status === "completed"
                   ? "text-green-500"
                   : "text-red-500"
