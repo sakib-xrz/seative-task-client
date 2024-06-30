@@ -70,7 +70,7 @@ export default function TaskEdit({ params }) {
       status: null,
       priority: null,
       due_date: null,
-      assignees: [],
+      assigns: [],
       duration: null,
     },
     validationSchema: Yup.object({
@@ -113,7 +113,7 @@ export default function TaskEdit({ params }) {
         status: task.status,
         priority: task.priority,
         due_date: task.due_date,
-        assignees: task.assignees,
+        assigns: task.assigns,
         duration: task.duration,
       });
     }
@@ -241,12 +241,12 @@ export default function TaskEdit({ params }) {
                 isMulti
                 onChange={(selected) => {
                   formik.setFieldValue(
-                    "assignees",
+                    "assigns",
                     selected.map((user) => user.value),
                   );
                 }}
                 value={userOptions.filter((user) =>
-                  formik.values.assignees?.includes(user.value),
+                  formik.values.assigns?.includes(user.value),
                 )}
               />
             </div>

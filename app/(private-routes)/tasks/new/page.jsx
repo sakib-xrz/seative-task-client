@@ -62,7 +62,7 @@ export default function CreateTask() {
       status: null,
       priority: null,
       due_date: null,
-      assignees: [],
+      assigns: [],
       duration: null,
     },
     validationSchema: Yup.object({
@@ -219,12 +219,12 @@ export default function CreateTask() {
                 isMulti
                 onChange={(selected) => {
                   formik.setFieldValue(
-                    "assignees",
+                    "assigns",
                     selected.map((user) => user.value),
                   );
                 }}
                 value={userOptions.filter((user) =>
-                  formik.values.assignees.includes(user.value),
+                  formik.values.assigns.includes(user.value),
                 )}
               />
             </div>
