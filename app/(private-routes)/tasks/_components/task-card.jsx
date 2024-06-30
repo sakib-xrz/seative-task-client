@@ -18,9 +18,11 @@ import { formatText } from "@/lib/utils";
 import ApiKit from "@/common/ApiKit";
 import { toast } from "sonner";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function TaskCard({ task, refetch }) {
   const isDueDateOver = new Date(task?.due_date) < new Date();
+  const [isDragging, setIsDragging] = useState(false);
 
   const handleDelete = (id) => {
     const promise = ApiKit.task
@@ -38,8 +40,27 @@ export default function TaskCard({ task, refetch }) {
       error: "Failed to delete task",
     });
   };
+
+  const handleDragStart = (e) => {
+    e.dataTransfer.setData("taskId", task._id);
+    e.dataTransfer.setData("sourceStatus", task.status);
+    setIsDragging(true);
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+  };
+
   return (
-    <div key={task?._id} className="rounded-lg bg-white shadow-lg">
+    <div
+      key={task?._id}
+      className={`task-card rounded-lg bg-white shadow-lg ${
+        isDragging ? "shadow-xl" : ""
+      }`}
+      draggable
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
       <div className="flex items-center justify-between gap-2 px-4 py-4 lg:gap-4 lg:px-6">
         <div className="flex items-center gap-2">
           <Avatar className="h-10 w-10">
