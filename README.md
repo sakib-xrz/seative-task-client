@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Seative Task Client (Todo Application)
 
-## Getting Started
+**Live Website Link:** [https://seative-todo.vercel.app](https://seative-todo.vercel.app)
 
-First, run the development server:
+## Technology Used:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **ShadCn** as component library
+- **Axios** for handling HTTP requests
+- **React Query** for data fetching and caching
+- **Formik** for handling forms
+- **Yup** for form validation
+- **Zustand** for global state management
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Fully custom authentication (user login / registration)
+- Functional task management system: users can create, read, edit, and delete tasks
+- **Search Functionality:** Users can search tasks by title
+- **Sort Functionality:** Users can sort tasks by priority, duration, and due date in ascending or descending order
+- **Filter Functionality:** Users can filter tasks by status, priority, and due date
+- All search, sort, and filter functionalities are URL-based, ensuring persistence across page reloads
+- Clear search, sort, and filter functionalities
+- Task assignment: Users can assign tasks to other team members by searching for their names and can assign multiple users at a time
+- Email notifications: An email will be sent to assigned users at midnight if the task is not complete and the due date has passed
