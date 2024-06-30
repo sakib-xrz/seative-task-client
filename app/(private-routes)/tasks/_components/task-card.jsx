@@ -21,7 +21,10 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function TaskCard({ task, refetch }) {
-  const isDueDateOver = new Date(task?.due_date) < new Date();
+  const dueDate = new Date(task?.due_date);
+  dueDate.setDate(dueDate.getDate() + 1);
+  const isDueDateOver = dueDate < new Date();
+
   const [isDragging, setIsDragging] = useState(false);
 
   const handleDelete = (id) => {
