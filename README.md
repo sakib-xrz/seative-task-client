@@ -20,5 +20,6 @@
 - **Filter Functionality:** Users can filter tasks by status, priority, and due date
 - All search, sort, and filter functionalities are URL-based, ensuring persistence across page reloads
 - Clear search, sort, and filter functionalities
+- User can change the status of a task using drag and drop
 - Task assignment: Users can assign tasks to other team members by searching for their names and can assign multiple users at a time
 - Email notifications: An email will be sent to assigned users at midnight if the task is not complete and the due date has passed
