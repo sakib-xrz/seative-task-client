@@ -210,7 +210,7 @@ export default function CreateTask() {
             </Popover>
           </div>
           <div className="mt-6 grid grid-cols-12 gap-6">
-            <div className="col-span-8">
+            <div className="col-span-full md:col-span-8">
               <SelectField
                 label="Assignees"
                 options={userOptions}
@@ -229,7 +229,7 @@ export default function CreateTask() {
               />
             </div>
 
-            <div className="col-span-4 grid gap-2">
+            <div className="col-span-full grid gap-2 md:col-span-4">
               <Label htmlFor="duration">Duration (Hour)</Label>
               <Input
                 id="duration"
